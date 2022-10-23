@@ -34,6 +34,8 @@
   --color-text: var(--vt-c-text-light-1);
 
   --section-gap: 160px;
+
+  --primary-color: #001dff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -55,7 +57,7 @@
 *::after {
   box-sizing: border-box;
   margin: 0;
-  position: relative;
+  /*position: relative;*/
   font-weight: normal;
 }
 
