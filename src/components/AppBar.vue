@@ -1,22 +1,19 @@
 <template>
-<div id="appbar">
-  <a href="#"><img src="@/assets/mbs-logo.png" alt="logo mbs purworejo"></a>
-  <nav>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Timeline</a></li>
-      <li><a href="#">Contact</a></li>
-      <li class="btn"><a href="#">Login</a></li>
-    </ul>
-  </nav>
-</div>
+  <div id="appbar">
+    <a href="/"
+      ><img src="@/assets/mbs-logo-web.svg" alt="logo mbs purworejo"
+    /></a>
+    <nav>
+      <img id="menu-bar" src="@/assets/bars-solid.svg" />
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#timeline">Timeline</a></li>
+        <li><a href="#syarat-pendaftaran">Syarat Pendaftaran</a></li>
+        <li class="btn"><a href="https://docs.google.com/forms/d/1aTCToPUchaEipAYpffO-Q-lBP7qqj4QsKm9AyukLaAw/edit" target="_blank">Daftar Sekarang</a></li>
+      </ul>
+    </nav>
+  </div>
 </template>
-
-<script>
-export default {
-  name: "AppBar"
-}
-</script>
 
 <style scoped>
 #appbar {
@@ -29,6 +26,7 @@ export default {
 
 img {
   height: 50px;
+  padding: 3px;
 }
 
 ul li {
@@ -36,11 +34,11 @@ ul li {
   margin-right: 18px;
 }
 
-ul li a {
+ul li:not(.btn) a {
   color: var(--primary-color);
 }
-ul li:not(.btn) a:hover::after{
-  content: '';
+ul li:not(.btn) a:hover::after {
+  content: "";
   width: 18px;
   height: 4px;
   border-radius: 5px;
@@ -49,10 +47,62 @@ ul li:not(.btn) a:hover::after{
   background-color: var(--primary-color);
 }
 
-ul .btn a {
-  background-color: var(--primary-color);
-  padding: 8px 16px;
-  border-radius: 25px;
-  color: var(--vt-c-text-dark-1);
+#menu-bar {
+  height: 26px;
+  display: none;
+  margin-right: 18px;
+}
+
+@media (max-width: 730px) {
+  #menu-bar {
+    display: block;
+    position: relative;
+    z-index: 9;
+  }
+
+  ul {
+    background-color: #c9c8c8;
+    padding: 18px;
+    display: none;
+  }
+  .show ul {
+    display: block;
+    position: absolute;
+    right: 0;
+    height: 100vh;
+    top: 0;
+    min-width: 300px;
+  }
+
+  ul li {
+    display: block;
+    margin-top: 18px;
+  }
+}
+
+@media (max-width: 450px) {
+  #menu-bar {
+    margin-right: 12px;
+  }
 }
 </style>
+
+<script lang="ts">
+export default {
+  name: "AppBar",
+  mounted() {
+    const menuBar = document.querySelector("#menu-bar");
+    const nav = document.querySelector("nav");
+
+    menuBar?.addEventListener("click", (e) => {
+      if (nav?.classList.contains("show")) {
+        nav?.classList.remove("show");
+        menuBar?.setAttribute("src", "src/assets/bars-solid.svg");
+      } else {
+        nav?.classList.add("show");
+        menuBar?.setAttribute("src", "src/assets/xmark-solid.svg");
+      }
+    });
+  },
+};
+</script>
